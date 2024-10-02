@@ -55,21 +55,30 @@
                 <h4 class="font-semibold mb-2"><%= String.capitalize(slot_type) %> Slots:</h4>
                 <ul class="list-none">
                   <%= for module <- modules do %>
-                    <li class="flex items-center mb-1">
-                      <%= if module["icon_url"] do %>
-                        <img
-                          src={module["icon_url"]}
-                          alt={module["name"]}
-                          class="w-6 h-6 mr-2"
-                        />
-                      <% end %>
-                      <span>
-                        <%= module["name"] %>
-                        <%= if module["charge"] do %>
-                          , <%= module["charge"] %>
+                  <li class="flex items-center mb-1">
+                    <%= if module["icon_url"] do %>
+                      <img
+                        src={module["icon_url"]}
+                        alt={module["name"]}
+                        class="w-6 h-6 mr-2"
+                      />
+                    <% end %>
+                    <span>
+                      <%= module["name"] %>
+                      <%= if module["charge"] do %>
+                        ,
+                        <%= if module["charge_icon_url"] do %>
+                          <img
+                            src={module["charge_icon_url"]}
+                            alt={module["charge"]}
+                            class="w-6 h-6 mr-2"
+                          />
                         <% end %>
-                      </span>
-                    </li>
+                        <%= module["charge"] %>
+                      <% end %>
+                    </span>
+                  </li>
+                  
                   <% end %>
                 </ul>
               </div>

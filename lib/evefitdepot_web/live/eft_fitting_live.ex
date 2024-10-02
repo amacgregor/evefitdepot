@@ -69,35 +69,54 @@ defmodule EvefitdepotWeb.EFTFittingLive do
 
     parsed_fitting = Map.put(parsed_fitting, "ship", ship)
 
-    # Collect all item names
-    module_names =
+    # Collect all item names including charges
+    module_names_and_charges =
       parsed_fitting["slots"]
-      |> Enum.flat_map(fn {_slot_type, modules} -> Enum.map(modules, & &1["name"]) end)
-
-    IO.inspect(module_names)
+      |> Enum.flat_map(fn {_slot_type, modules} ->
+        Enum.flat_map(modules, fn module ->
+          names = [module["name"]]
+          if module["charge"], do: names ++ [module["charge"]], else: names
+        end)
+      end)
 
     drone_names = Enum.map(parsed_fitting["drones"], & &1["name"])
     cargo_names = Enum.map(parsed_fitting["cargo"], & &1["name"])
-    all_item_names = module_names ++ drone_names ++ cargo_names
-    IO.inspect(all_item_names)
+    all_item_names = module_names_and_charges ++ drone_names ++ cargo_names
 
     # Fetch all type IDs at once using the ESIClient
     type_id_map = Evefitdepot.ESIClient.get_type_ids(all_item_names)
 
-      IO.inspect(type_id_map)
     # Update modules
     parsed_fitting = Map.update!(parsed_fitting, "slots", fn slots ->
       Enum.map(slots, fn {slot_type, modules} ->
         updated_modules =
           Enum.map(modules, fn module ->
-            if type_id = Map.get(type_id_map, module["name"]) do
-              icon_url = Evefitdepot.ESIClient.get_item_icon_url(type_id)
-              module
-              |> Map.put("icon_url", icon_url)
-              |> Map.put("type_id", type_id)
-            else
-              module
-            end
+            # Update module type ID and icon URL
+            module =
+              if type_id = Map.get(type_id_map, module["name"]) do
+                icon_url = Evefitdepot.ESIClient.get_item_icon_url(type_id)
+                module
+                |> Map.put("icon_url", icon_url)
+                |> Map.put("type_id", type_id)
+              else
+                module
+              end
+
+            # Update charge type ID and icon URL
+            charge_name = module["charge"]
+            charge_type_id = charge_name && Map.get(type_id_map, charge_name)
+
+            module =
+              if charge_type_id do
+                icon_url = Evefitdepot.ESIClient.get_item_icon_url(charge_type_id)
+                module
+                |> Map.put("charge_icon_url", icon_url)
+                |> Map.put("charge_type_id", charge_type_id)
+              else
+                module
+              end
+
+            module
           end)
 
         {slot_type, updated_modules}
@@ -132,8 +151,8 @@ defmodule EvefitdepotWeb.EFTFittingLive do
         end
       end)
     end)
-    IO.inspect(parsed_fitting)
 
+    IO.inspect(parsed_fitting)
     parsed_fitting
   end
 
