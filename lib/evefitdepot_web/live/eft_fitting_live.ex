@@ -211,6 +211,15 @@ defmodule EvefitdepotWeb.EFTFittingLive do
 
   end
 
+  defp get_all_modules_with_charges(parsed_fitting) do
+    parsed_fitting["slots"]
+    |> Map.values()
+    |> List.flatten()
+    |> Enum.map(fn module ->
+      module
+    end)
+  end
+
 
   defp calculate_angle(index, max_slots, start_angle, end_angle) do
     if max_slots > 1 do

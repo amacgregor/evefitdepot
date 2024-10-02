@@ -45,50 +45,50 @@ defmodule Evefitdepot.EFTParserTest do
         "fitting_name" => "L4 Enforcer Autocannon Shield",
         "slots" => %{
           "low" => [
-            %{name: "Gyrostabilizer II", charge: nil},
-            %{name: "Gyrostabilizer II", charge: nil},
-            %{name: "Gyrostabilizer II", charge: nil},
-            %{name: "Tracking Enhancer II", charge: nil},
-            %{name: "Damage Control II", charge: nil}
+            %{"name" => "Gyrostabilizer II", "charge" => nil},
+            %{"name" => "Gyrostabilizer II", "charge" => nil},
+            %{"name" => "Gyrostabilizer II", "charge" => nil},
+            %{"name" => "Tracking Enhancer II", "charge" => nil},
+            %{"name" => "Damage Control II", "charge" => nil}
           ],
           "mid" => [
-            %{name: "Pithum B-Type Medium Shield Booster", charge: nil},
-            %{name: "Shield Boost Amplifier II", charge: nil},
-            %{name: "Republic Fleet Medium Cap Battery", charge: nil},
-            %{name: "Federation Navy 10MN Afterburner", charge: nil},
-            %{name: "Multispectrum Shield Hardener II", charge: nil}
+            %{"name" => "Pithum B-Type Medium Shield Booster", "charge" => nil},
+            %{"name" => "Shield Boost Amplifier II", "charge" => nil},
+            %{"name" => "Republic Fleet Medium Cap Battery", "charge" => nil},
+            %{"name" => "Federation Navy 10MN Afterburner", "charge" => nil},
+            %{"name" => "Multispectrum Shield Hardener II", "charge" => nil}
           ],
           "high" => [
-            %{name: "425mm AutoCannon II", charge: "Hail M"},
-            %{name: "425mm AutoCannon II", charge: "Hail M"},
-            %{name: "425mm AutoCannon II", charge: "Hail M"},
-            %{name: "425mm AutoCannon II", charge: "Hail M"},
-            %{name: "425mm AutoCannon II", charge: "Hail M"},
+            %{"name" => "425mm AutoCannon II", "charge" => "Hail M"},
+            %{"name" => "425mm AutoCannon II", "charge" => "Hail M"},
+            %{"name" => "425mm AutoCannon II", "charge" => "Hail M"},
+            %{"name" => "425mm AutoCannon II", "charge" => "Hail M"},
+            %{"name" => "425mm AutoCannon II", "charge" => "Hail M"},
             %{
-              name: "Heavy Assault Missile Launcher II",
-              charge: "Nova Rage Heavy Assault Missile"
+              "name" => "Heavy Assault Missile Launcher II",
+              "charge" => "Nova Rage Heavy Assault Missile"
             },
             %{
-              name: "Heavy Assault Missile Launcher II",
-              charge: "Nova Rage Heavy Assault Missile"
+              "name" => "Heavy Assault Missile Launcher II",
+              "charge" => "Nova Rage Heavy Assault Missile"
             }
           ],
           "rigs" => [
-            %{name: "Medium Capacitor Control Circuit II", charge: nil},
-            %{name: "Medium Capacitor Control Circuit II", charge: nil}
+            %{"name" => "Medium Capacitor Control Circuit II", "charge" => nil},
+            %{"name" => "Medium Capacitor Control Circuit II", "charge" => nil}
           ]
           # "subsystems" is not included for non-T3 ships
         },
         "drones" => [
-          %{name: "Hornet II", quantity: 5}
+          %{"name" => "Hornet II", "quantity" => 5}
         ],
         "cargo" => [
-          %{name: "Barrage M", quantity: 6000},
-          %{name: "Hail M", quantity: 6000},
-          %{name: "Mjolnir Rage Heavy Assault Missile", quantity: 1000},
-          %{name: "Nova Rage Heavy Assault Missile", quantity: 1000},
-          %{name: "Republic Fleet EMP M", quantity: 1000},
-          %{name: "Republic Fleet Fusion M", quantity: 2000}
+          %{"name" => "Barrage M", "quantity" => 6000},
+          %{"name" => "Hail M", "quantity" => 6000},
+          %{"name" => "Mjolnir Rage Heavy Assault Missile", "quantity" => 1000},
+          %{"name" => "Nova Rage Heavy Assault Missile", "quantity" => 1000},
+          %{"name" => "Republic Fleet EMP M", "quantity" => 1000},
+          %{"name" => "Republic Fleet Fusion M", "quantity" => 2000}
         ]
       }
 
@@ -138,46 +138,46 @@ defmodule Evefitdepot.EFTParserTest do
         "fitting_name" => "Tengu Fit Example",
         "slots" => %{
           "low" => [
-            %{name: "Ballistic Control System II", charge: nil},
-            %{name: "Ballistic Control System II", charge: nil},
-            %{name: "Ballistic Control System II", charge: nil},
-            %{name: "Ballistic Control System II", charge: nil}
+            %{"name" => "Ballistic Control System II", "charge" => nil},
+            %{"name" => "Ballistic Control System II", "charge" => nil},
+            %{"name" => "Ballistic Control System II", "charge" => nil},
+            %{"name" => "Ballistic Control System II", "charge" => nil}
           ],
           "mid" => [
-            %{name: "10MN Afterburner II", charge: nil},
-            %{name: "Adaptive Invulnerability Field II", charge: nil},
-            %{name: "Large Shield Extender II", charge: nil},
-            %{name: "Large Shield Extender II", charge: nil},
-            %{name: "Shield Boost Amplifier II", charge: nil},
-            %{name: "EM Ward Amplifier II", charge: nil}
+            %{"name" => "10MN Afterburner II", "charge" => nil},
+            %{"name" => "Adaptive Invulnerability Field II", "charge" => nil},
+            %{"name" => "Large Shield Extender II", "charge" => nil},
+            %{"name" => "Large Shield Extender II", "charge" => nil},
+            %{"name" => "Shield Boost Amplifier II", "charge" => nil},
+            %{"name" => "EM Ward Amplifier II", "charge" => nil}
           ],
           "high" => [
-            %{name: "Heavy Missile Launcher II", charge: "Scourge Fury Heavy Missile"},
-            %{name: "Heavy Missile Launcher II", charge: "Scourge Fury Heavy Missile"},
-            %{name: "Heavy Missile Launcher II", charge: "Scourge Fury Heavy Missile"},
-            %{name: "Heavy Missile Launcher II", charge: "Scourge Fury Heavy Missile"},
-            %{name: "Heavy Missile Launcher II", charge: "Scourge Fury Heavy Missile"},
-            %{name: "Heavy Missile Launcher II", charge: "Scourge Fury Heavy Missile"}
+            %{"name" => "Heavy Missile Launcher II", "charge" => "Scourge Fury Heavy Missile"},
+            %{"name" => "Heavy Missile Launcher II", "charge" => "Scourge Fury Heavy Missile"},
+            %{"name" => "Heavy Missile Launcher II", "charge" => "Scourge Fury Heavy Missile"},
+            %{"name" => "Heavy Missile Launcher II", "charge" => "Scourge Fury Heavy Missile"},
+            %{"name" => "Heavy Missile Launcher II", "charge" => "Scourge Fury Heavy Missile"},
+            %{"name" => "Heavy Missile Launcher II", "charge" => "Scourge Fury Heavy Missile"}
           ],
           "rigs" => [
-            %{name: "Medium Warhead Rigor Catalyst II", charge: nil},
-            %{name: "Medium Warhead Flare Catalyst II", charge: nil},
-            %{name: "[Empty Rig slot]", charge: nil}
+            %{"name" => "Medium Warhead Rigor Catalyst II", "charge" => nil},
+            %{"name" => "Medium Warhead Flare Catalyst II", "charge" => nil},
+            %{"name" => "[Empty Rig slot]", "charge" => nil}
           ],
           "subsystems" => [
-            %{name: "Tengu Defensive - Adaptive Shielding", charge: nil},
-            %{name: "Tengu Electronics - Dissolution Sequencer", charge: nil},
-            %{name: "Tengu Engineering - Capacitor Regeneration Matrix", charge: nil},
-            %{name: "Tengu Offensive - Accelerated Ejection Bay", charge: nil},
-            %{name: "Tengu Propulsion - Fuel Catalyst", charge: nil}
+            %{"name" => "Tengu Defensive - Adaptive Shielding", "charge" => nil},
+            %{"name" => "Tengu Electronics - Dissolution Sequencer", "charge" => nil},
+            %{"name" => "Tengu Engineering - Capacitor Regeneration Matrix", "charge" => nil},
+            %{"name" => "Tengu Offensive - Accelerated Ejection Bay", "charge" => nil},
+            %{"name" => "Tengu Propulsion - Fuel Catalyst", "charge" => nil}
           ]
         },
         "drones" => [
-          %{name: "Warrior II", quantity: 5}
+          %{"name" => "Warrior II", "quantity" => 5}
         ],
         "cargo" => [
-          %{name: "Scourge Fury Heavy Missile", quantity: 2000},
-          %{name: "Nanite Repair Paste", quantity: 100}
+          %{"name" => "Scourge Fury Heavy Missile", "quantity" => 2000},
+          %{"name" => "Nanite Repair Paste", "quantity" => 100}
         ]
       }
 
@@ -203,21 +203,21 @@ defmodule Evefitdepot.EFTParserTest do
         "fitting_name" => "Basic Rifter Fit",
         "slots" => %{
           "low" => [
-            %{name: "200mm AutoCannon I", charge: nil},
-            %{name: "200mm AutoCannon I", charge: nil},
-            %{name: "200mm AutoCannon I", charge: nil}
+            %{"name" => "200mm AutoCannon I", "charge" => nil},
+            %{"name" => "200mm AutoCannon I", "charge" => nil},
+            %{"name" => "200mm AutoCannon I", "charge" => nil}
           ],
           "mid" => [
-            %{name: "1MN Afterburner I", charge: nil}
+            %{"name" => "1MN Afterburner I", "charge" => nil}
           ],
           "high" => [
-            %{name: "Small Armor Repairer I", charge: nil}
+            %{"name" => "Small Armor Repairer I", "charge" => nil}
           ],
           "rigs" => []
           # "subsystems" is not included
         },
         "drones" => [
-          %{name: "Warrior I", quantity: 2}
+          %{"name" => "Warrior I", "quantity" => 2}
         ],
         "cargo" => []
       }
@@ -258,35 +258,35 @@ defmodule Evefitdepot.EFTParserTest do
         "fitting_name" => "Drone Boat",
         "slots" => %{
           "low" => [
-            %{name: "Damage Control II", charge: nil},
-            %{name: "Drone Damage Amplifier II", charge: nil},
-            %{name: "Drone Damage Amplifier II", charge: nil},
-            %{name: "Drone Damage Amplifier II", charge: nil}
+            %{"name" => "Damage Control II", "charge" => nil},
+            %{"name" => "Drone Damage Amplifier II", "charge" => nil},
+            %{"name" => "Drone Damage Amplifier II", "charge" => nil},
+            %{"name" => "Drone Damage Amplifier II", "charge" => nil}
           ],
           "mid" => [
-            %{name: "50MN Microwarpdrive II", charge: nil},
-            %{name: "Large Shield Extender II", charge: nil},
-            %{name: "Large Shield Extender II", charge: nil},
-            %{name: "Adaptive Invulnerability Field II", charge: nil}
+            %{"name" => "50MN Microwarpdrive II", "charge" => nil},
+            %{"name" => "Large Shield Extender II", "charge" => nil},
+            %{"name" => "Large Shield Extender II", "charge" => nil},
+            %{"name" => "Adaptive Invulnerability Field II", "charge" => nil}
           ],
           "high" => [
-            %{name: "[Empty High slot]", charge: nil},
-            %{name: "[Empty High slot]", charge: nil},
-            %{name: "[Empty High slot]", charge: nil},
-            %{name: "[Empty High slot]", charge: nil},
-            %{name: "[Empty High slot]", charge: nil}
+            %{"name" => "[Empty High slot]", "charge" => nil},
+            %{"name" => "[Empty High slot]", "charge" => nil},
+            %{"name" => "[Empty High slot]", "charge" => nil},
+            %{"name" => "[Empty High slot]", "charge" => nil},
+            %{"name" => "[Empty High slot]", "charge" => nil}
           ],
           "rigs" => [
-            %{name: "Medium Core Defense Field Extender I", charge: nil},
-            %{name: "Medium Core Defense Field Extender I", charge: nil},
-            %{name: "Medium Core Defense Field Extender I", charge: nil}
+            %{"name" => "Medium Core Defense Field Extender I", "charge" => nil},
+            %{"name" => "Medium Core Defense Field Extender I", "charge" => nil},
+            %{"name" => "Medium Core Defense Field Extender I", "charge" => nil}
           ]
           # "subsystems" is not included
         },
         "drones" => [
-          %{name: "Hobgoblin II", quantity: 5},
-          %{name: "Hammerhead II", quantity: 5},
-          %{name: "Ogre II", quantity: 2}
+          %{"name" => "Hobgoblin II", "quantity" => 5},
+          %{"name" => "Hammerhead II", "quantity" => 5},
+          %{"name" => "Ogre II", "quantity" => 2}
         ],
         "cargo" => []
       }
@@ -332,45 +332,158 @@ defmodule Evefitdepot.EFTParserTest do
         "fitting_name" => "Laser Boat",
         "slots" => %{
           "low" => [
-            %{name: "Heat Sink II", charge: nil},
-            %{name: "Heat Sink II", charge: nil},
-            %{name: "Heat Sink II", charge: nil},
-            %{name: "Tracking Enhancer II", charge: nil},
-            %{name: "Tracking Enhancer II", charge: nil},
-            %{name: "Damage Control II", charge: nil},
-            %{name: "Reactor Control Unit II", charge: nil}
+            %{"name" => "Heat Sink II", "charge" => nil},
+            %{"name" => "Heat Sink II", "charge" => nil},
+            %{"name" => "Heat Sink II", "charge" => nil},
+            %{"name" => "Tracking Enhancer II", "charge" => nil},
+            %{"name" => "Tracking Enhancer II", "charge" => nil},
+            %{"name" => "Damage Control II", "charge" => nil},
+            %{"name" => "Reactor Control Unit II", "charge" => nil}
           ],
           "mid" => [
-            %{name: "100MN Afterburner II", charge: nil},
-            %{name: "Large Micro Jump Drive", charge: nil},
-            %{name: "Tracking Computer II", charge: "Optimal Range Script"}
+            %{"name" => "100MN Afterburner II", "charge" => nil},
+            %{"name" => "Large Micro Jump Drive", "charge" => nil},
+            %{"name" => "Tracking Computer II", "charge" => "Optimal Range Script"}
           ],
           "high" => [
-            %{name: "Mega Pulse Laser II", charge: "Imperial Navy Multifrequency L"},
-            %{name: "Mega Pulse Laser II", charge: "Imperial Navy Multifrequency L"},
-            %{name: "Mega Pulse Laser II", charge: "Imperial Navy Multifrequency L"},
-            %{name: "Mega Pulse Laser II", charge: "Imperial Navy Multifrequency L"},
-            %{name: "Mega Pulse Laser II", charge: "Imperial Navy Multifrequency L"},
-            %{name: "Mega Pulse Laser II", charge: "Imperial Navy Multifrequency L"},
-            %{name: "Mega Pulse Laser II", charge: "Imperial Navy Multifrequency L"},
-            %{name: "Mega Pulse Laser II", charge: "Imperial Navy Multifrequency L"}
+            %{"name" => "Mega Pulse Laser II", "charge" => "Imperial Navy Multifrequency L"},
+            %{"name" => "Mega Pulse Laser II", "charge" => "Imperial Navy Multifrequency L"},
+            %{"name" => "Mega Pulse Laser II", "charge" => "Imperial Navy Multifrequency L"},
+            %{"name" => "Mega Pulse Laser II", "charge" => "Imperial Navy Multifrequency L"},
+            %{"name" => "Mega Pulse Laser II", "charge" => "Imperial Navy Multifrequency L"},
+            %{"name" => "Mega Pulse Laser II", "charge" => "Imperial Navy Multifrequency L"},
+            %{"name" => "Mega Pulse Laser II", "charge" => "Imperial Navy Multifrequency L"},
+            %{"name" => "Mega Pulse Laser II", "charge" => "Imperial Navy Multifrequency L"}
           ],
           "rigs" => [
-            %{name: "Large Energy Locus Coordinator I", charge: nil},
-            %{name: "Large Energy Locus Coordinator I", charge: nil},
-            %{name: "Large Energy Locus Coordinator I", charge: nil}
+            %{"name" => "Large Energy Locus Coordinator I", "charge" => nil},
+            %{"name" => "Large Energy Locus Coordinator I", "charge" => nil},
+            %{"name" => "Large Energy Locus Coordinator I", "charge" => nil}
           ]
           # "subsystems" is not included
         },
         "drones" => [
-          %{name: "Acolyte II", quantity: 5}
+          %{"name" => "Acolyte II", "quantity" => 5}
         ],
         "cargo" => [
-          %{name: "Imperial Navy Multifrequency L", quantity: 8}
+          %{"name" => "Imperial Navy Multifrequency L", "quantity" => 8}
         ]
       }
 
       assert EFTParser.parse(eft_text) == expected_result
+    end
+
+    test "parses fitting with no drones, but with cargo and boosters correctly" do
+      eft_text = """
+      [Tengu,Simulated Tengu Fitting]
+      Ballistic Control System II
+      Ballistic Control System II
+
+      Republic Fleet Large Cap Battery
+      Pith B-Type Shield Boost Amplifier
+      Pith C-Type Large Shield Booster
+      Federation Navy 10MN Afterburner
+      Multispectrum Shield Hardener II
+      Warp Scrambler II
+      Stasis Webifier II
+
+      Heavy Assault Missile Launcher II
+      Heavy Assault Missile Launcher II
+      Heavy Assault Missile Launcher II
+      Heavy Assault Missile Launcher II
+      Heavy Assault Missile Launcher II
+      Heavy Assault Missile Launcher II
+      Covert Ops Cloaking Device II
+      Expanded Probe Launcher I
+
+      Medium Ancillary Current Router I
+      Medium EM Shield Reinforcer II
+      Medium Capacitor Control Circuit II
+
+      Tengu Core - Augmented Graviton Reactor
+      Tengu Defensive - Covert Reconfiguration
+      Tengu Offensive - Accelerated Ejection Bay
+      Tengu Propulsion - Fuel Catalyst
+
+
+      Agency 'Hardshell' TB5 Dose II
+      Improved Blue Pill Booster
+
+
+      Guristas Nova Heavy Assault Missile x1000
+      Mjolnir Rage Heavy Assault Missile x1500
+      Scourge Javelin Heavy Assault Missile x2828
+      Sisters Combat Scanner Probe x8
+      Scourge Rage Heavy Assault Missile x6803
+      Core Scanner Probe I x8
+      Multispectrum Shield Hardener II x1
+      Ballistic Control System II x1
+      Medium EM Shield Reinforcer II x1
+      Mobile Depot x1
+      Mobile Tractor Unit x1
+      """
+
+      expected_result = %{
+        "fitting_name" => "Simulated Tengu Fitting",
+        "ship" => "Tengu",
+        "slots" => %{
+          "low" => [
+            %{"name" => "Ballistic Control System II"},
+            %{"name" => "Ballistic Control System II"}
+          ],
+          "mid" => [
+            %{"name" => "Republic Fleet Large Cap Battery"},
+            %{"name" => "Pith B-Type Shield Boost Amplifier"},
+            %{"name" => "Pith C-Type Large Shield Booster"},
+            %{"name" => "Federation Navy 10MN Afterburner"},
+            %{"name" => "Multispectrum Shield Hardener II"},
+            %{"name" => "Warp Scrambler II"},
+            %{"name" => "Stasis Webifier II"}
+          ],
+          "high" => [
+            %{"name" => "Heavy Assault Missile Launcher II"},
+            %{"name" => "Heavy Assault Missile Launcher II"},
+            %{"name" => "Heavy Assault Missile Launcher II"},
+            %{"name" => "Heavy Assault Missile Launcher II"},
+            %{"name" => "Heavy Assault Missile Launcher II"},
+            %{"name" => "Heavy Assault Missile Launcher II"},
+            %{"name" => "Covert Ops Cloaking Device II"},
+            %{"name" => "Expanded Probe Launcher I"}
+          ],
+          "rigs" => [
+            %{"name" => "Medium Ancillary Current Router I"},
+            %{"name" => "Medium EM Shield Reinforcer II"},
+            %{"name" => "Medium Capacitor Control Circuit II"}
+          ],
+          "subsystems" => [
+            %{"name" => "Tengu Core - Augmented Graviton Reactor"},
+            %{"name" => "Tengu Defensive - Covert Reconfiguration"},
+            %{"name" => "Tengu Offensive - Accelerated Ejection Bay"},
+            %{"name" => "Tengu Propulsion - Fuel Catalyst"}
+          ]
+        },
+        "cargo" => [
+          %{"name" => "Guristas Nova Heavy Assault Missile", "quantity" => 1000},
+          %{"name" => "Mjolnir Rage Heavy Assault Missile", "quantity" => 1500},
+          %{"name" => "Scourge Javelin Heavy Assault Missile", "quantity" => 2828},
+          %{"name" => "Sisters Combat Scanner Probe", "quantity" => 8},
+          %{"name" => "Scourge Rage Heavy Assault Missile", "quantity" => 6803},
+          %{"name" => "Core Scanner Probe I", "quantity" => 8},
+          %{"name" => "Multispectrum Shield Hardener II", "quantity" => 1},
+          %{"name" => "Ballistic Control System II", "quantity" => 1},
+          %{"name" => "Medium EM Shield Reinforcer II", "quantity" => 1},
+          %{"name" => "Mobile Depot", "quantity" => 1},
+          %{"name" => "Mobile Tractor Unit", "quantity" => 1}
+        ],
+        "drones" => [],
+        "boosters" => [
+          %{"name" => "Agency 'Hardshell' TB5 Dose II"},
+          %{"name" => "Improved Blue Pill Booster"}
+        ]
+      }
+
+      assert EFTParser.parse(eft_text) == expected_result
+
     end
   end
 end
