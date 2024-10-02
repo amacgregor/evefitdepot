@@ -5,6 +5,14 @@ defmodule Evefitdepot.ESIClient do
   require Logger
 
   @base_url "https://esi.evetech.net/latest"
+  @image_base_url "https://images.evetech.net"
+
+
+  # Function to get the ship's rendered image URL
+  def get_ship_render_url(type_id, size \\ 512) do
+    "#{@image_base_url}/types/#{type_id}/render?size=#{size}"
+  end
+
 
   @doc """
   Resolve item names to type IDs using the POST /universe/ids/ endpoint.
