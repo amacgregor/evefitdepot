@@ -1,0 +1,40 @@
+<.header>
+  Listing Fittings
+  <:actions>
+    <.link patch={~p"/fittings/new"}>
+      <.button>New Fitting</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="fittings"
+  rows={@streams.fittings}
+  row_click={fn {_id, fitting} -> JS.navigate(~p"/fittings/#{fitting}") end}
+>
+  <:action :let={{_id, fitting}}>
+    <div class="sr-only">
+      <.link navigate={~p"/fittings/#{fitting}"}>Show</.link>
+    </div>
+    <.link patch={~p"/fittings/#{fitting}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, fitting}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: fitting.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="fitting-modal" show on_cancel={JS.patch(~p"/fittings")}>
+  <.live_component
+    module={EvefitdepotWeb.FittingLive.FormComponent}
+    id={@fitting.id || :new}
+    title={@page_title}
+    action={@live_action}
+    fitting={@fitting}
+    patch={~p"/fittings"}
+  />
+</.modal>

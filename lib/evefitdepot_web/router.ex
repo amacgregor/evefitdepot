@@ -18,6 +18,16 @@ defmodule EvefitdepotWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    live "/fittings", FittingLive.Index, :index
+    live "/fittings/new", FittingLive.Index, :new
+    live "/fittings/:id/edit", FittingLive.Index, :edit
+
+    live "/fittings/:id", FittingLive.Show, :show
+    live "/fittings/:id/show/edit", FittingLive.Show, :edit
+
+    live "/eft_parser", EFTFittingLive
+
+
   end
 
   # Other scopes may use custom stacks.

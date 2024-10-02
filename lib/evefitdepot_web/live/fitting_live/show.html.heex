@@ -1,0 +1,25 @@
+<.header>
+  Fitting <%= @fitting.id %>
+  <:subtitle>This is a fitting record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/fittings/#{@fitting}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit fitting</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+</.list>
+
+<.back navigate={~p"/fittings"}>Back to fittings</.back>
+
+<.modal :if={@live_action == :edit} id="fitting-modal" show on_cancel={JS.patch(~p"/fittings/#{@fitting}")}>
+  <.live_component
+    module={EvefitdepotWeb.FittingLive.FormComponent}
+    id={@fitting.id}
+    title={@page_title}
+    action={@live_action}
+    fitting={@fitting}
+    patch={~p"/fittings/#{@fitting}"}
+  />
+</.modal>

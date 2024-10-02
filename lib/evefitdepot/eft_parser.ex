@@ -58,32 +58,38 @@ defmodule Evefitdepot.EFTParser do
     acc = Enum.reduce(sections, acc, fn section, acc ->
       lines = section |> Enum.map(&String.trim/1) |> Enum.reject(&(&1 == ""))
 
-      if Enum.all?(lines, &item_with_quantity?/1) do
-        # If drones are empty, assign to drones
-        if acc.drones == [] do
-          items = parse_items_with_quantity(lines)
-          %{acc | drones: acc.drones ++ items}
-        else
-          # Assign to cargo
-          items = parse_items_with_quantity(lines)
-          %{acc | cargo: acc.cargo ++ items}
-        end
+      if lines == [] do
+        # Skip empty sections
+        acc
       else
-        # Assign to the next slot
-        if acc.slot_index < length(slot_keys) do
-          slot_key = Enum.at(slot_keys, acc.slot_index)
-          modules = parse_module_lines(lines)
-          slots = Map.update!(acc.slots, slot_key, &(&1 ++ modules))
-          %{acc | slots: slots, slot_index: acc.slot_index + 1}
+        if Enum.all?(lines, &item_with_quantity?/1) do
+          # If drones are empty, assign to drones
+          if acc.drones == [] do
+            items = parse_items_with_quantity(lines)
+            %{acc | drones: acc.drones ++ items}
+          else
+            # Assign to cargo
+            items = parse_items_with_quantity(lines)
+            %{acc | cargo: acc.cargo ++ items}
+          end
         else
-          # Extra modules beyond expected slots
-          acc
+          # Assign to the next slot
+          if acc.slot_index < length(slot_keys) do
+            slot_key = Enum.at(slot_keys, acc.slot_index)
+            modules = parse_module_lines(lines)
+            slots = Map.update!(acc.slots, slot_key, &(&1 ++ modules))
+            %{acc | slots: slots, slot_index: acc.slot_index + 1}
+          else
+            # Extra modules beyond expected slots
+            acc
+          end
         end
       end
     end)
 
     {acc.slots, acc.drones, acc.cargo}
   end
+
 
   defp item_with_quantity?(line) do
     regex = ~r/^.+\s+x\s*\d+$/
@@ -98,30 +104,17 @@ defmodule Evefitdepot.EFTParser do
       module_name = String.trim(module_name)
       charge = rest |> List.first() |> (fn x -> x && String.trim(x) end).()
 
-      %{name: module_name, charge: charge}
+      %{"name" => module_name, "charge" => charge}
     end)
   end
+
+
 
   defp parse_items_with_quantity(lines) do
-    lines
-    |> Enum.map(&String.trim/1)
-    |> Enum.map(fn line ->
-      case parse_item_with_quantity(line) do
-        {:ok, item} -> item
-        :error -> nil
-      end
+    Enum.map(lines, fn line ->
+      [_, name, quantity_str] = Regex.run(~r/^(.+?)\s+x(\d+)$/, line)
+      quantity = String.to_integer(quantity_str)
+      %{"name" => name, "quantity" => quantity}
     end)
-    |> Enum.reject(&is_nil/1)
-  end
-
-  defp parse_item_with_quantity(line) do
-    regex = ~r/^(.+?)\s*x\s*(\d+)$/
-    case Regex.run(regex, line) do
-      [_, item_name, quantity_str] ->
-        quantity = String.to_integer(quantity_str)
-        {:ok, %{name: item_name, quantity: quantity}}
-      _ ->
-        :error
-    end
   end
 end
