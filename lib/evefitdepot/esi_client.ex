@@ -40,6 +40,67 @@ defmodule Evefitdepot.ESIClient do
     end
   end
 
+  def get_ship_attributes(type_id) do
+    url = "#{@base_url}/universe/types/#{type_id}/"
+    headers = [{"Content-Type", "application/json"}]
+
+    case HTTPoison.get(url, headers) do
+      {:ok, %{status_code: 200, body: response_body}} ->
+        case Jason.decode(response_body) do
+          {:ok, data} ->
+            attributes = Map.get(data, "dogma_attributes", [])
+            # Extract slot counts
+            high_slots = get_attribute_value(attributes, 14)
+            med_slots = get_attribute_value(attributes, 13)
+            low_slots = get_attribute_value(attributes, 12)
+            rig_slots = get_attribute_value(attributes, 1137)
+            %{
+              "high_slots" => high_slots || 0,
+              "mid_slots" => med_slots || 0,
+              "low_slots" => low_slots || 0,
+              "rig_slots" => rig_slots || 0
+            }
+
+          {:error, _reason} ->
+            Logger.error("Failed to decode ship attributes for type_id: #{type_id}")
+            %{
+              "high_slots" => 0,
+              "mid_slots" => 0,
+              "low_slots" => 0,
+              "rig_slots" => 0
+            }
+        end
+
+      {:ok, %{status_code: status_code}} ->
+        Logger.error("Failed to fetch ship attributes, status code: #{status_code}")
+        %{
+          "high_slots" => 0,
+          "mid_slots" => 0,
+          "low_slots" => 0,
+          "rig_slots" => 0
+        }
+
+      {:error, reason} ->
+        Logger.error("HTTP error fetching ship attributes: #{inspect(reason)}")
+        %{
+          "high_slots" => 0,
+          "mid_slots" => 0,
+          "low_slots" => 0,
+          "rig_slots" => 0
+        }
+    end
+  end
+
+
+  defp get_attribute_value(attributes, attribute_id) do
+    attributes
+    |> Enum.find(fn attr -> attr["attribute_id"] == attribute_id end)
+    |> case do
+      %{"value" => value} -> trunc(value)
+      _ -> nil
+    end
+  end
+
   def get_type_ids(item_names) do
     url = "#{@base_url}/universe/ids/"
     headers = [{"Content-Type", "application/json"}]

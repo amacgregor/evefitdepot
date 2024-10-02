@@ -1,6 +1,7 @@
 <!-- lib/evefitdepot_web/live/eft_fitting_live.html.heex -->
 
 <div class="container mx-auto p-4">
+    <!-- Form Section -->
     <h1 class="text-2xl font-bold mb-4">EFT Fitting Parser</h1>
   
     <div class="mb-4">
@@ -12,7 +13,7 @@
           rows="10"
           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
           placeholder="[Ship Type, Fitting Name]..."
-          required
+              required
         ><%= @eft_text %></textarea>
         <button type="submit" class="mt-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
           Parse Fitting
@@ -20,114 +21,129 @@
       </form>
     </div>
   
+    <!-- Error Display -->
     <%= if @error do %>
       <div class="text-red-600 font-semibold"><%= @error %></div>
     <% end %>
   
+    <!-- Parsed Fitting Display -->
     <%= if @parsed_fitting do %>
-      <div class="mt-6">
-        <h2 class="text-xl font-semibold mb-2">Parsed Fitting:</h2>
-  
-        <div class="flex items-center mb-4">
-            <%= if @parsed_fitting["ship"]["image_url"] do %>
-              <img
-                src={@parsed_fitting["ship"]["image_url"]}
-                alt={@parsed_fitting["ship"]["name"]}
-                class="w-16 h-16 mr-4"
-              />
-            <% end %>
-            <div>
-              <div><strong>Ship:</strong> <%= @parsed_fitting["ship"]["name"] %></div>
-              <div><strong>Fitting Name:</strong> <%= @parsed_fitting["fitting_name"] %></div>
-            </div>
-          </div>
-          
-  
-        <div class="mt-4">
-          <h3 class="text-lg font-semibold">Slots:</h3>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
-            <!-- Iterate over the slot types -->
-            <%= for slot_type <- ["high", "mid", "low", "rigs", "subsystems"],
-                   modules = @parsed_fitting["slots"][slot_type],
-                   not is_nil(modules),
-                   modules != [] do %>
-              <div>
-                <h4 class="font-semibold mb-2"><%= String.capitalize(slot_type) %> Slots:</h4>
-                <ul class="list-none">
-                  <%= for module <- modules do %>
-                  <li class="flex items-center mb-1">
-                    <%= if module["icon_url"] do %>
-                      <img
-                        src={module["icon_url"]}
-                        alt={module["name"]}
-                        class="w-6 h-6 mr-2"
-                      />
-                    <% end %>
-                    <span>
-                      <%= module["name"] %>
-                      <%= if module["charge"] do %>
-                        ,
-                        <%= if module["charge_icon_url"] do %>
-                          <img
-                            src={module["charge_icon_url"]}
-                            alt={module["charge"]}
-                            class="w-6 h-6 mr-2"
-                          />
-                        <% end %>
-                        <%= module["charge"] %>
-                      <% end %>
-                    </span>
-                  </li>
-                  
-                  <% end %>
-                </ul>
-              </div>
-            <% end %>
-          </div>
+      <!-- Fitting Display -->
+      <div class="fitting-container relative mx-auto" style="width: 400px; height: 400px;">
+        <!-- Ship Image at the Center -->
+        <div class="ship-image absolute inset-0 flex items-center justify-center">
+          <%= if @parsed_fitting["ship"]["image_url"] do %>
+            <img
+              src={@parsed_fitting["ship"]["image_url"]}
+              alt={@parsed_fitting["ship"]["name"]}
+              class="w-32 h-32 rounded-full"
+            />
+          <% end %>
         </div>
-  
-        <!-- Drones Section -->
-        <%= if @parsed_fitting["drones"] && Enum.any?(@parsed_fitting["drones"]) do %>
-          <div class="mt-4">
-            <h3 class="text-lg font-semibold">Drones:</h3>
-            <ul class="list-none mt-2">
-              <%= for drone <- @parsed_fitting["drones"] do %>
-                <li class="flex items-center mb-1">
-                  <%= if drone["icon_url"] do %>
-                    <img
-                      src={drone["icon_url"]}
-                      alt={drone["name"]}
-                      class="w-6 h-6 mr-2"
-                    />
-                  <% end %>
-                  <span><%= drone["name"] %> x<%= drone["quantity"] %></span>
-                </li>
-              <% end %>
-            </ul>
+      
+        <!-- High Slots -->
+        <%= for {module, index} <- Enum.with_index(complete_slots("high", @parsed_fitting["slots"]["high"]), 1) do %>
+          <div
+            class="slot absolute"
+            style={slot_position("high", index)}
+          >
+            <img
+              src={module_icon_url(module, "high")}
+              alt={module_name(module, "high")}
+              class="w-10 h-10 rounded-full border border-gray-500"
+            />
           </div>
         <% end %>
-  
-        <!-- Cargo Section -->
-        <%= if @parsed_fitting["cargo"] && Enum.any?(@parsed_fitting["cargo"]) do %>
-          <div class="mt-4">
-            <h3 class="text-lg font-semibold">Cargo:</h3>
-            <ul class="list-none mt-2">
-              <%= for item <- @parsed_fitting["cargo"] do %>
-                <li class="flex items-center mb-1">
-                  <%= if item["icon_url"] do %>
-                    <img
-                      src={item["icon_url"]}
-                      alt={item["name"]}
-                      class="w-6 h-6 mr-2"
-                    />
-                  <% end %>
-                  <span><%= item["name"] %> x<%= item["quantity"] %></span>
-                </li>
-              <% end %>
-            </ul>
+      
+        <!-- Mid Slots -->
+        <%= for {module, index} <- Enum.with_index(complete_slots("mid", @parsed_fitting["slots"]["mid"]), 1) do %>
+          <div
+            class="slot absolute"
+            style={slot_position("mid", index)}
+          >
+            <img
+              src={module_icon_url(module, "mid")}
+              alt={module_name(module, "mid")}
+              class="w-10 h-10 rounded-full border border-gray-500"
+            />
           </div>
+        <% end %>
+      
+        <!-- Low Slots -->
+        <%= for {module, index} <- Enum.with_index(complete_slots("low", @parsed_fitting["slots"]["low"]), 1) do %>
+          <div
+            class="slot absolute"
+            style={slot_position("low", index)}
+          >
+            <img
+              src={module_icon_url(module, "low")}
+              alt={module_name(module, "low")}
+              class="w-10 h-10 rounded-full border border-gray-500"
+            />
+          </div>
+        <% end %>
+      
+        <!-- Rig Slots -->
+        <%= for {module, index} <- Enum.with_index(complete_slots("rigs", @parsed_fitting["slots"]["rigs"]), 1) do %>
+          <div
+            class="slot absolute"
+            style={slot_position("rigs", index)}
+          >
+            <img
+              src={module_icon_url(module, "rig")}
+              alt={module_name(module, "rig")}
+              class="w-10 h-10 rounded-full border border-gray-500"
+            />
+          </div>
+        <% end %>
+      
+        <!-- Subsystem Slots (if applicable) -->
+        <%= if @parsed_fitting["slots"]["subsystems"] do %>
+          <%= for {module, index} <- Enum.with_index(complete_slots("subsystems", @parsed_fitting["slots"]["subsystems"]), 1) do %>
+            <div
+              class="slot absolute"
+              style={slot_position("subsystems", index)}
+            >
+              <img
+                src={module_icon_url(module, "subsystem")}
+                alt={module_name(module, "subsystem")}
+                class="w-10 h-10 rounded-full border border-gray-500"
+              />
+            </div>
+          <% end %>
         <% end %>
       </div>
+      
+  
+      <!-- Drones and Cargo Sections -->
+      <!-- Include as desired -->
+  
     <% end %>
   </div>
+  
+  <!-- Optional CSS Styles -->
+  <style>
+    .fitting-container {
+      position: relative;
+      width: 400px;
+      height: 400px;
+    }
+  
+    .ship-image {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  
+    .slot {
+      width: 40px;
+      height: 40px;
+    }
+  
+    .slot img {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
   

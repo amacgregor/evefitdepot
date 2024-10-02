@@ -57,11 +57,15 @@ defmodule EvefitdepotWeb.EFTFittingLive do
     ship =
       with {:ok, type_id} <- Evefitdepot.ESIClient.get_type_id(ship_name),
            icon_url = Evefitdepot.ESIClient.get_item_icon_url(type_id) do
+        # Fetch ship attributes
+        ship_attributes = Evefitdepot.ESIClient.get_ship_attributes(type_id)
+
         %{
           "name" => ship_name,
           "type_id" => type_id,
           "image_url" => icon_url
         }
+        |> Map.merge(ship_attributes)
       else
         _ ->
           %{"name" => ship_name}
@@ -156,4 +160,91 @@ defmodule EvefitdepotWeb.EFTFittingLive do
     parsed_fitting
   end
 
+
+  defp slot_position(slot_type, index) do
+    radius = 180.0
+
+    angle =
+      case slot_type do
+        "high" ->
+          max_slots = 8
+          start_angle = -150.0
+          end_angle = -60.0
+          calculate_angle(index, max_slots, start_angle, end_angle)
+
+        "mid" ->
+          max_slots = 8
+          start_angle = -45.0
+          end_angle = 45.0
+          calculate_angle(index, max_slots, start_angle, end_angle)
+
+        "low" ->
+          max_slots = 8
+          start_angle = 60.0
+          end_angle = 150.0
+          calculate_angle(index, max_slots, start_angle, end_angle)
+
+        "rigs" ->
+          rig_angles = [167.0, 180.0, -167.0] # Positions at left side
+          Enum.at(rig_angles, index - 1, 180.0)
+
+        "subsystems" ->
+          max_slots = 4
+          start_angle = -135.0
+          end_angle = -90.0
+          calculate_angle(index, max_slots, start_angle, end_angle)
+
+        _ ->
+          0.0
+      end
+
+    x = radius * :math.cos(:math.pi() * angle / 180.0)
+    y = radius * :math.sin(:math.pi() * angle / 180.0)
+
+    "left: calc(50% + #{x}px - 20px); top: calc(50% + #{y}px - 20px);"
+  end
+
+
+  defp calculate_angle(index, max_slots, start_angle, end_angle) do
+    if max_slots > 1 do
+      angle_increment = (end_angle - start_angle) / (max_slots - 1)
+      start_angle + (index - 1) * angle_increment
+    else
+      start_angle
+    end
+  end
+
+  defp complete_slots(slot_type, modules) do
+    max_slots =
+      case slot_type do
+        "high" -> 8
+        "mid" -> 8
+        "low" -> 8
+        "rigs" -> 3
+        "subsystems" -> 4
+        _ -> length(modules || [])
+      end
+
+    modules = modules || []
+    filled_slots = Enum.take(modules, max_slots)
+    empty_slots = List.duplicate(nil, max_slots - length(filled_slots))
+    filled_slots ++ empty_slots
+  end
+
+
+  defp module_icon_url(module, slot_type) do
+    if module do
+      module["icon_url"]
+    else
+      "/images/empty_#{slot_type}_slot.png"
+    end
+  end
+
+  defp module_name(module, slot_type) do
+    if module do
+      module["name"]
+    else
+      "Empty #{String.capitalize(slot_type)} Slot"
+    end
+  end
 end
